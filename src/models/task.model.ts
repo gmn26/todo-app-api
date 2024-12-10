@@ -15,6 +15,10 @@ export type AddTaskRequest = {
     dueDate: string;
 }
 
+export type AccTaskRequest = {
+    id: string;
+}
+
 export function toTaskResponse(task: Task): TaskResponse {
     return {
         id: task.id,

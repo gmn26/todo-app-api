@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { AddTaskRequest } from "../models/task.model";
+import { AccTaskRequest, AddTaskRequest } from "../models/task.model";
 import { TaskService } from "../services/task.service";
 
 export class TaskController {
@@ -10,6 +10,20 @@ export class TaskController {
             res.status(201).json({
                 success: true,
                 message: "Task added successfully",
+                result
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async accTask(req: Request, res: Response, next: NextFunction) {
+        try {
+            const request: AccTaskRequest = req.body;
+            const result = await TaskService.accTask(request);
+            res.status(201).json({
+                success: true,
+                message: "This task completed",
                 result
             });
         } catch (error) {
