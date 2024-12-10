@@ -9,17 +9,15 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  email     String   @unique(map: "email") @db.VarChar(255)
-  password  String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("users")
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  dueDate     String
+  status      String   @default("Pending")
+  createdAt   DateTime @default(now())
 }
