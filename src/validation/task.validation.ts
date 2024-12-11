@@ -7,7 +7,5 @@ export class TaskValidation {
         dueDate: z.string(),
     });
 
-    static readonly ID: ZodType = z.object({
-        id: z.string().min(1).max(100),
-    });
+    static readonly ID: ZodType = z.string();
 }

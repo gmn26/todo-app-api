@@ -5,5 +5,5 @@ export const publicRoutes = express.Router();
 
 publicRoutes.get('/task', TaskController.fetchTask);
 publicRoutes.post('/task/add', TaskController.addTask);
-publicRoutes.patch('/task/acc', TaskController.accTask);
-publicRoutes.delete('/task/del', TaskController.deleteTask);
+publicRoutes.patch('/task/acc/:id', TaskController.accTask);
+publicRoutes.delete('/task/del/:id', TaskController.deleteTask);

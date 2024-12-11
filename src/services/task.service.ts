@@ -1,6 +1,6 @@
 import { prismaClient } from "../app/database";
 import { ResponseError } from "../lib/error.response";
-import { TaskIdRequest, AddTaskRequest, FetchTaskResponse, TaskResponse, toFetchResponse, toTaskResponse, DeleteResponse, toDelResponse } from "../models/task.model";
+import { AddTaskRequest, FetchTaskResponse, TaskResponse, toFetchResponse, toTaskResponse, DeleteResponse, toDelResponse } from "../models/task.model";
 import { TaskValidation } from "../validation/task.validation";
 import { Validation } from "../validation/validation";
 
@@ -14,7 +14,7 @@ export class TaskService {
 
     static async addTask(request: AddTaskRequest): Promise<TaskResponse> {
         const addTask = Validation.validate(
-            TaskValidation.ID,
+            TaskValidation.ADD,
             request
         );
 
@@ -25,7 +25,7 @@ export class TaskService {
         return toTaskResponse(add);
     }
 
-    static async accTask(request: TaskIdRequest): Promise<TaskResponse> {
+    static async accTask(request: string): Promise<TaskResponse> {
         const accTask = Validation.validate(
             TaskValidation.ID,
             request
@@ -33,7 +33,7 @@ export class TaskService {
 
         const checkTask = await prismaClient.task.findUnique({
             where: {
-                id: accTask.id,
+                id: accTask,
             },
         });
 
@@ -43,7 +43,7 @@ export class TaskService {
 
         const acc = await prismaClient.task.update({
             where: {
-                id: accTask.id,
+                id: accTask,
             },
             data: {
                 status: "Complete",
@@ -53,7 +53,7 @@ export class TaskService {
         return toTaskResponse(acc);
     }
 
-    static async deleteTask(request: TaskIdRequest): Promise<DeleteResponse> {
+    static async deleteTask(request: string): Promise<DeleteResponse> {
         const deleteTask = Validation.validate(
             TaskValidation.ID,
             request
@@ -61,7 +61,7 @@ export class TaskService {
 
         const checkTask = await prismaClient.task.findUnique({
             where: {
-                id: deleteTask.id,
+                id: deleteTask,
             },
         });
 
@@ -71,7 +71,7 @@ export class TaskService {
 
         const del = await prismaClient.task.delete({
             where: {
-                id: deleteTask.id,
+                id: deleteTask,
             },
         });
 
