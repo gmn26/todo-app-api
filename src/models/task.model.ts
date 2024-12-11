@@ -1,5 +1,10 @@
 import { Task } from "@prisma/client";
 
+export type FetchTaskResponse = {
+    tasks: TaskResponse[],
+    totalTask: number,
+}
+
 export type TaskResponse = {
     id: string;
     title: string;
@@ -15,7 +20,11 @@ export type AddTaskRequest = {
     dueDate: string;
 }
 
-export type AccTaskRequest = {
+export type DeleteResponse = {
+    title: string;
+}
+
+export type TaskIdRequest = {
     id: string;
 }
 
@@ -27,5 +36,26 @@ export function toTaskResponse(task: Task): TaskResponse {
         dueDate: task.dueDate,
         status: task.status,
         createdAt: task.createdAt,
+    }
+}
+
+export function toFetchResponse(tasks: Task[], totalTask: number): FetchTaskResponse {
+    const taskResponse: TaskResponse[] = tasks.map((task) => ({
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        dueDate: task.dueDate,
+        status: task.status,
+        createdAt: task.createdAt,
+    }));
+
+    return {
+        tasks: taskResponse,
+        totalTask: totalTask,
+    }
+}
+export function toDelResponse(task: Task): DeleteResponse {
+    return {
+        title: task.title,
     }
 }

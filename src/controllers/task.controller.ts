@@ -1,8 +1,21 @@
 import { Request, Response, NextFunction } from "express";
-import { AccTaskRequest, AddTaskRequest } from "../models/task.model";
+import { TaskIdRequest, AddTaskRequest } from "../models/task.model";
 import { TaskService } from "../services/task.service";
 
 export class TaskController {
+    static async fetchTask(req: Request, res: Response, next: NextFunction) {
+        try {
+            const result = await TaskService.fetchTask();
+            res.status(200).json({
+                success: true,
+                message: "Success fetch tasks",
+                result
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
     static async addTask(req: Request, res: Response, next: NextFunction) {
         try {
             const request: AddTaskRequest = req.body;
@@ -19,11 +32,25 @@ export class TaskController {
 
     static async accTask(req: Request, res: Response, next: NextFunction) {
         try {
-            const request: AccTaskRequest = req.body;
+            const request: TaskIdRequest = req.body;
             const result = await TaskService.accTask(request);
             res.status(201).json({
                 success: true,
                 message: "This task completed",
+                result
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async deleteTask(req: Request, res: Response, next: NextFunction) {
+        try {
+            const request: TaskIdRequest = req.body;
+            const result = await TaskService.deleteTask(request);
+            res.status(201).json({
+                success: true,
+                message: "Task deleted succesfully",
                 result
             });
         } catch (error) {

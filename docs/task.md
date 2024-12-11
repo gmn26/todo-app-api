@@ -88,3 +88,45 @@ Response Error :
   "errors": "Error..." // Some errors message
 }
 ```
+
+## Del Task API Spec
+
+Endpoint : POST /del
+
+Request Body :
+
+```json
+{
+  "id": "xxxxxx"
+}
+```
+
+Response Body : (If task founded)
+
+```json
+{
+  "success": true,
+  "message": "Task deleted succesfully",
+  "result": {
+    "title": "Example Title"
+  }
+}
+```
+
+Response Body : (If task not founded)
+
+```json
+{
+  "success": false,
+  "errors": "Task not found"
+}
+```
+
+Response Error :
+
+```json
+{
+  "success": false,
+  "errors": "Error..." // Some errors message
+}
+```
