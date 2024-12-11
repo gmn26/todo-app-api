@@ -44,7 +44,7 @@ Response Error :
 
 ## Acc Task API Spec
 
-Endpoint : POST /acc
+Endpoint : POST /acc/:id
 
 Request Body :
 
@@ -89,9 +89,58 @@ Response Error :
 }
 ```
 
+## Edit Task API Spec
+
+Endpoint : POST /edit/:id
+
+Request Body :
+
+```json
+{
+  "title": "New Title",
+  "description": "New Description",
+  "dueDate": "2024-10-12"
+}
+```
+
+Response Body : (If task founded)
+
+```json
+{
+  "success": true,
+  "message": "Task edited succesfully",
+  "result": {
+    "id": "xxxxxx",
+    "title": "New Title",
+    "description": "New Description",
+    "dueDate": "2024-10-12",
+    "status": "Complete", // got prev status
+    "createdAt": "2024-12-11T10:06:54.610Z" // got prev createdAt
+  }
+}
+```
+
+Response Body : (If task not founded)
+
+```json
+{
+  "success": false,
+  "errors": "Task not found"
+}
+```
+
+Response Error :
+
+```json
+{
+  "success": false,
+  "errors": "Error..." // Some errors message
+}
+```
+
 ## Del Task API Spec
 
-Endpoint : POST /del
+Endpoint : POST /del/:id
 
 Request Body :
 

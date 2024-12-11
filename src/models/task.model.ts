@@ -14,7 +14,7 @@ export type TaskResponse = {
     createdAt: Date;
 }
 
-export type AddTaskRequest = {
+export type TaskRequest = {
     title: string;
     description: string;
     dueDate: string;

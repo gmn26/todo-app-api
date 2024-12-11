@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { TaskIdRequest, AddTaskRequest } from "../models/task.model";
+import { TaskIdRequest, TaskRequest } from "../models/task.model";
 import { TaskService } from "../services/task.service";
 import { logger } from "../app/logging";
 
@@ -19,11 +19,26 @@ export class TaskController {
 
     static async addTask(req: Request, res: Response, next: NextFunction) {
         try {
-            const request: AddTaskRequest = req.body;
+            const request: TaskRequest = req.body;
             const result = await TaskService.addTask(request);
             res.status(201).json({
                 success: true,
                 message: "Task added successfully",
+                result
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async editTask(req: Request, res: Response, next: NextFunction) {
+        try {
+            const request: TaskRequest = req.body;
+            const taskId: string = req.params.id;
+            const result = await TaskService.editTask(request, taskId);
+            res.status(201).json({
+                success: true,
+                message: "Task edited succesfully",
                 result
             });
         } catch (error) {
