@@ -6,7 +6,11 @@ import { Validation } from "../validation/validation";
 
 export class TaskService {
     static async fetchTask(): Promise<FetchTaskResponse> {
-        const datas = await prismaClient.task.findMany();
+        const datas = await prismaClient.task.findMany({
+            orderBy: {
+                createdAt: "asc",
+            },
+        });
         const total = await prismaClient.task.count();
 
         return toFetchResponse(datas, total);

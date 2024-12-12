@@ -2,7 +2,7 @@
 
 Base URL : http://localhost:3000/api/v1/task
 
-# Fetch Task API Spec
+## Fetch Task API Spec
 
 Endpoint : GET /task
 
@@ -109,7 +109,7 @@ Response Error :
 
 ## Edit Task API Spec
 
-Endpoint : POST /edit/:id
+Endpoint : PUT /edit/:id
 
 Request Body :
 
