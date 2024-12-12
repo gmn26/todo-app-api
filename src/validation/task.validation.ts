@@ -8,4 +8,5 @@ export class TaskValidation {
     });
 
     static readonly ID: ZodType = z.string();
+    static readonly STATUS: ZodType = z.string();
 }

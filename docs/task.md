@@ -2,6 +2,32 @@
 
 Base URL : http://localhost:3000/api/v1/task
 
+# Fetch Task API Spec
+
+Endpoint : GET /task
+
+Response Body :
+
+```json
+{
+  "success": true,
+  "message": "Success fetch tasks",
+  "result": {
+    "tasks": [
+      {
+        "id": "xxxxxx",
+        "title": "Example Title",
+        "description": "Example Description",
+        "dueDate": "2024-10-12",
+        "status": "Pending",
+        "createdAt": "2024-12-11T08:09:55.827Z" // current time when task is created
+      }
+    ],
+    "totalTask": 1 // base on task quantity
+  }
+}
+```
+
 ## Add Task API Spec
 
 Endpoint : POST /add
@@ -42,17 +68,9 @@ Response Error :
 }
 ```
 
-## Acc Task API Spec
+## Change Status Task API Spec
 
-Endpoint : POST /acc/:id
-
-Request Body :
-
-```json
-{
-  "id": "xxxxxx"
-}
-```
+Endpoint : POST /chagestatus/:id/:status
 
 Response Body : (If task founded)
 

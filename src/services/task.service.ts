@@ -55,15 +55,20 @@ export class TaskService {
         return toTaskResponse(edit);
     }
 
-    static async accTask(request: string): Promise<TaskResponse> {
-        const accTask = Validation.validate(
+    static async changeStat(id: string, status: string): Promise<TaskResponse> {
+        const accId = Validation.validate(
             TaskValidation.ID,
-            request
+            id
+        );
+
+        const accStatus = Validation.validate(
+            TaskValidation.STATUS,
+            status
         );
 
         const checkTask = await prismaClient.task.findUnique({
             where: {
-                id: accTask,
+                id: accId,
             },
         });
 
@@ -71,16 +76,16 @@ export class TaskService {
             throw new ResponseError(404, "Task not found");
         }
 
-        const acc = await prismaClient.task.update({
+        const change = await prismaClient.task.update({
             where: {
-                id: accTask,
+                id: accId,
             },
             data: {
-                status: "Complete",
+                status: accStatus,
             },
         });
 
-        return toTaskResponse(acc);
+        return toTaskResponse(change);
     }
 
     static async deleteTask(request: string): Promise<DeleteResponse> {

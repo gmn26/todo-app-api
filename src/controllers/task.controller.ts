@@ -46,10 +46,11 @@ export class TaskController {
         }
     }
 
-    static async accTask(req: Request, res: Response, next: NextFunction) {
+    static async changeStat(req: Request, res: Response, next: NextFunction) {
         try {
-            const request: string = req.params.id;
-            const result = await TaskService.accTask(request);
+            const status: string = req.params.status;
+            const id: string = req.params.id;
+            const result = await TaskService.changeStat(id, status);
             res.status(201).json({
                 success: true,
                 message: "This task completed",
